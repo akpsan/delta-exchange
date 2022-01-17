@@ -18,7 +18,6 @@ function App() {
       socket.onopen = function () {
         // Get markprice
         const symbolList = res.data.result.map(prod => prod.symbol)
-        symbolList.forEach(symbol => symbolPriceMap[symbol] = null)
         socket.send(JSON.stringify({
           "type": "subscribe",
           "payload": {
@@ -54,15 +53,15 @@ function App() {
         <table className='table'>
           <thead className='table-header'>
             <tr>
-              <th>Symbol</th>
-              <th>Description</th>
-              <th>Underlying Asset</th>
-              <th>Mark Price</th>
+              <th>{`Symbol ${!products ? '(Loading)' : ''}`}</th>
+              <th>{`Description ${!products ? '(Loading)' : ''}`}</th>
+              <th>{`Underlying Asset ${!products ? '(Loading)' : ''}`}</th>
+              <th>{`Mark Price ${Object.keys(symbolPriceMap).length <= 0 ? '(Loading)' : ''}`}</th>
             </tr>
           </thead>
           <tbody>
             {products && products.result.map(prod =>
-            (<tr>
+            (<tr key={prod.symbol}>
               <td>{prod.symbol}</td>
               <td>{prod.description}</td>
               <td>{prod.underlying_asset.symbol}</td>
