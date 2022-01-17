@@ -1,3 +1,8 @@
+npm run start -> local server at port 3000
+
+npm run build -> build project
+
+
 Delta exchange coding assignment
 
 Create a table that shows the following data.   
